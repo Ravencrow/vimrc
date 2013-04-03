@@ -21,6 +21,44 @@ set ruler		" show the cursor position all the time
 " Rebind <Leader> key
 let mapleader = ","
 
+" Setting up Vundle - the vim plugin bundler
+" Remember to use :BundleInstall! every now and then
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+" Add your bundles here
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'klen/python-mode'
+Bundle 'tpope/vim-surround'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'honza/snipmate-snippets'
+Bundle 'garbas/vim-snipmate'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'vim-scripts/pythoncomplete'
+Bundle 'jimf/javascriptcomplete'
+Bundle 'mjbrownie/vim-htmldjango_omnicomplete'
+Bundle 'Syntastic'
+Bundle 'flazz/vim-colorschemes'
+"...All your other bundles...
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
+
 " Bind nohl
 " Removes highlight of your last search
 noremap <C-n> :nohl<CR>
@@ -61,13 +99,6 @@ vnoremap > >gv	" better indentation
 " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Color scheme
-" mkdir -p $HOME/.vim/colors && cd $HOME/.vim/colors
-" wget -O wombat256mod.vim
-" http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
@@ -163,42 +194,13 @@ endif
 " http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
 
-" Setting up Vundle - the vim plugin bundler
-" Remember to use :BundleInstall! every now and then
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-" Add your bundles here
-Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'klen/python-mode'
-Bundle 'tpope/vim-surround'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'honza/snipmate-snippets'
-Bundle 'garbas/vim-snipmate'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'vim-scripts/pythoncomplete'
-Bundle 'jimf/javascriptcomplete'
-Bundle 'mjbrownie/vim-htmldjango_omnicomplete'
-Bundle 'Syntastic'
-"...All your other bundles...
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+" Color scheme
+" mkdir -p $HOME/.vim/colors && cd $HOME/.vim/colors
+" wget -O wombat256mod.vim
+" http://www.vim.org/scripts/download_script.php?src_id=13400
+set t_Co=256
+color wombat256mod
+
 " Setting up Vundle - the vim plugin bundler end
 
 "================================================================
@@ -217,38 +219,6 @@ let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
-
-" Settings for python-mode
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-let g:pymode = 1
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-let g:pymode_run = 1
-let g:pymode_run_key = 'R'
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
-let g:pymode_lint_ignore = "E501"
-let g:pymode_lint_select = ""
-let g:pymode_lint_onfly = 0
-let g:pymode_lint_write = 1
-let g:pymode_lint_cwindow = 1
-let g:pymode_lint_message = 1
-let g:pymode_lint_jump = 0
-let g:pymode_lint_hold = 0
-let g:pymode_lint_signs = 1
-let g:pymode_lint_maxheight = 6
-let g:pymode_lint_minheight = 3
-let g:pymode_virtualenv = 1
-map <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enable_shortcuts = 1
-let g:pymode_rope_goto_def_newwin = "vnew"
-let g:pymode_rope_extended_complete = 1
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 0
-let g:pymode_syntax_builtin_funcs = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for
@@ -296,5 +266,13 @@ noremap <S-j> <C-d>
 noremap <S-k> <C-u>
 
 " Maximum number of characters per line
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.*/
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.*/
+highlight ColorColumn ctermbg=0
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+let g:pymode = 1
