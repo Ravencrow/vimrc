@@ -1,3 +1,4 @@
+set pastetoggle=<F2>
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
    set fileencodings=ucs-bom,utf-8,latin1
 endif
@@ -32,7 +33,6 @@ Bundle 'klen/python-mode'
 Bundle 'tpope/vim-surround'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
-Bundle 'honza/snipmate-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tsaleh/vim-matchit'
@@ -42,6 +42,10 @@ Bundle 'jimf/javascriptcomplete'
 Bundle 'mjbrownie/vim-htmldjango_omnicomplete'
 Bundle 'Syntastic'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 "...All your other bundles...
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
@@ -68,9 +72,9 @@ map <c-j> <c-w>j
 map <c-k> <c-W>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-
+map <Leader>d <c-w>w
 " Manage tabs
-nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tn <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>tc :tabclose<CR>
 
 " Easier moving between tabs
@@ -173,3 +177,6 @@ if exists('+colorcolumn')
 else
     au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
+
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
