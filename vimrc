@@ -1,9 +1,7 @@
-set pastetoggle=<F2>
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=ucs-bom,utf-8,latin1
-endif
+" File encoding to utf-8
+set encoding=utf-8
+set fileencodings=utf-8
 
-set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more
                             " than 50 lines of registers
@@ -17,7 +15,7 @@ let mapleader = ","
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
+    echo "Installing Vundle..."
     echo ""
     silent !mkdir -p ~/.vim/bundle
     silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
@@ -29,23 +27,26 @@ Bundle 'gmarik/vundle'
 " Add your bundles here
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'klen/python-mode'
-Bundle 'tpope/vim-surround'
+" Needed for snipmate
 Bundle 'MarcWeber/vim-addon-mw-utils'
+" Needed for snipmate
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'vim-scripts/pythoncomplete'
+Bundle 'tmhedberg/matchit'
 Bundle 'jimf/javascriptcomplete'
-Bundle 'mjbrownie/vim-htmldjango_omnicomplete'
 Bundle 'Syntastic'
-Bundle 'flazz/vim-colorschemes'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'ervandew/supertab'
+Bundle 'tpope/vim-surround'
+Bundle 'honza/vim-snippets'
+Bundle 'vim-scripts/php.vim-html-enhanced'
+Bundle 'kchmck/vim-coffee-script'
+
 "...All your other bundles...
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
@@ -78,8 +79,8 @@ nnoremap <Leader>tn <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>tc :tabclose<CR>
 
 " Easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
+map <S-h> <esc>:tabprevious<CR>
+map <S-l> <esc>:tabnext<CR>
 
 " Easier moving of code blocks
 vnoremap < <gv	" better indentation
@@ -92,8 +93,9 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
-filetype off
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 syntax on
 
 " Showing line numbers and length
@@ -132,7 +134,8 @@ filetype plugin on
 
 " Color scheme
 set t_Co=256
-color wombat256mod
+color Solarized
+" set background = dark
 
 " Better navigating through omnicomplete option list using ctrl+j/k
 set completeopt=longest,menuone
@@ -153,12 +156,10 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " Set the copy to clipboard to 'y'
 noremap y "*y
 
-" Set the ESC key to vv
+" Set the ESC key to fj
 map! fj <Esc>l
 
 " Set Omnicompletion for different languages
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -180,3 +181,22 @@ endif
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+
+let g:pymode_rope_lookup_project = 0
+let g:SuperTabDefaultCompletionType = "context"
+if has("gui_running")
+    set background = "dark"
+endif
+
+autocmd BufNewFile,BufRead *.rb set filetype=ruby
+
+" Set the keys to change from the action in the controller to the view in a
+" rails project
+noremap <Leader>r :R<CR>
+
+" Omnicompletion shortcut
+map! <C-Space> <C-X><C-O>
+
+" Snipmate shortcut
+:imap <Tab> <Plug>snipMateNextOrTrigger
+:smap <Tab> <Plug>snipMateNextOrTrigger
