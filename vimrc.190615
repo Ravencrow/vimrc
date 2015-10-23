@@ -31,7 +31,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 " Needed for snipmate
 Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+Bundle 'ervandew/snipmate.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tmhedberg/matchit'
 " Bundle 'jimf/javascriptcomplete'
@@ -41,8 +41,8 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'ervandew/supertab'
-Bundle 'honza/vim-snippets'
+" Bundle 'ervandew/supertab'
+" Bundle 'honza/vim-snippets'
 Bundle 'vim-scripts/php.vim-html-enhanced'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'moll/vim-node'
@@ -206,10 +206,3 @@ map! <C-Space> <C-X><C-O>
 " CtrlP command
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
-" Highlights ejs files
-au BufNewFile,BufRead *.ejs set filetype=html
-
-" Spacing for javascript and html = 2
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
