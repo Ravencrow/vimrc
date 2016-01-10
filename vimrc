@@ -28,10 +28,10 @@ Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 " Needed for snipmate
-Bundle 'MarcWeber/vim-addon-mw-utils'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
 " Needed for snipmate
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tmhedberg/matchit'
 " Bundle 'jimf/javascriptcomplete'
@@ -41,7 +41,9 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'vim-scripts/php.vim-html-enhanced'
 Bundle 'kchmck/vim-coffee-script'
@@ -199,10 +201,10 @@ noremap <Leader>r :R<CR>
 " Omnicompletion shortcut
 map! <C-Space> <C-X><C-O>
 
-" Snipmate shortcut
-:imap <Tab> <Plug>snipMateNextOrTrigger
-:smap <Tab> <Plug>snipMateNextOrTrigger
-
+" " Snipmate shortcut
+" :imap <Tab> <Plug>snipMateNextOrTrigger
+" :smap <Tab> <Plug>snipMateNextOrTrigger
+"
 " CtrlP command
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
