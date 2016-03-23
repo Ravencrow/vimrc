@@ -10,6 +10,7 @@ set ruler		" show the cursor position all the time
 " Rebind <Leader> key
 let mapleader = ","
 
+filetype off
 " Setting up Vundle - the vim plugin bundler
 " Remember to use :BundleInstall! every now and then
 let iCanHazVundle=1
@@ -27,21 +28,14 @@ Bundle 'gmarik/vundle'
 " Add your bundles here
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
-" Needed for snipmate
-" Bundle 'MarcWeber/vim-addon-mw-utils'
-" Needed for snipmate
-" Bundle 'tomtom/tlib_vim'
-" Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tmhedberg/matchit'
-" Bundle 'jimf/javascriptcomplete'
 Bundle 'Syntastic'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'altercation/vim-colors-solarized.git'
-" Bundle 'ervandew/supertab'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
@@ -50,6 +44,9 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'moll/vim-node'
 Bundle 'Townk/vim-autoclose'
 Bundle 'vim-scripts/closetag.vim'
+Bundle 'ternjs/tern_for_vim'
+Bundle 'leafgarland/typescript-vim'
+Bundle 'fatih/vim-go'
 
 "...All your other bundles...
 if iCanHazVundle == 0
@@ -134,8 +131,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-filetype plugin on
-
 " Color scheme
 set t_Co=256
 color Solarized
@@ -161,7 +156,11 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 noremap y "*y
 
 " Set the ESC key to fj
-map! fj <Esc>l
+inoremap fj <Esc>
+" inoremap kj <Esc>
+" inoremap jk <Esc>
+" inoremap df <Esc>
+" inoremap fd <Esc>
 
 " Set Omnicompletion for different languages
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -193,6 +192,8 @@ if has("gui_running")
 endif
 
 autocmd BufNewFile,BufRead *.rb set filetype=ruby
+au BufRead *.php set ft=php.html
+au BufNewFile *.php set ft=php.html
 
 " Set the keys to change from the action in the controller to the view in a
 " rails project
@@ -214,4 +215,34 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " Spacing for javascript and html = 2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+autocmd Filetype typescript setlocal ts=2 sts=2 sw=2
+autocmd Filetype json setlocal ts=2 sts=2 sw=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType php setlocal shiftwidth=4 tabstop=4
+au BufRead,BufNewFile *.ts        setlocal filetype=typescript
+
+let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<c-space>"
+let g:UltiSnipsJumpBackwardTrigger="<c-s-space>"
+
+" Relative number toggle
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+" nnoremap <C-n> :call NumberToggle()<cr>
+set relativenumber
+set number
+let g:typescript_indent_disable = 1
+
+" Tern related
+let g:tern_map_keys = 1
+let g:tern_show_argument_hints = 'on_hold'
+noremap <Leader>td :TernDoc<CR>
+noremap <Leader>tt :TernType<CR>
+noremap <Leader>td :TernDef<CR>
+noremap <Leader>tR :TernRename<CR>
