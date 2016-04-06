@@ -75,6 +75,7 @@ map <c-k> <c-W>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 map <Leader>d <c-w>w
+
 " Manage tabs
 nnoremap <Leader>tn <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>tc :tabclose<CR>
@@ -132,9 +133,12 @@ set nowritebackup
 set noswapfile
 
 " Color scheme
-set t_Co=256
-color Solarized
-" set background = dark
+syntax enable
+" set t_Co=256
+" color Solarized
+set background=dark
+colorscheme solarized
+let g:solarized_termcolors=256
 
 " Better navigating through omnicomplete option list using ctrl+j/k
 set completeopt=longest,menuone
