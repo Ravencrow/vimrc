@@ -106,6 +106,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-scripts/vim-auto-save'
 call plug#end()
 
 " Typescript autocompletion
@@ -121,17 +122,17 @@ let g:auto_complete_start_length = 0
 let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_debug = 1
 let g:deoplete#enable_profile = 1
+let g:deoplete#enable_at_startup = 1
 
-autocmd VimEnter * NERDTree
-autocmd VimEnter * NERDTree
-map <Leader>t <plug>NERDTreeTabsToggle<CR>
+map <Leader>t :NERDTreeTabsToggle<CR>
+map <Leader>f :NERDTreeTabsFind<CR>
+let g:nerdtree_tabs_autofind = 1
+let g:nerdtree_tabs_open_on_new_tab = 1
 autocmd VimEnter * wincmd p
 
 " Set relative numbers
 set relativenumber
 set number
-
-let g:deoplete#enable_at_startup = 1
 
 syntax on
 colorscheme onedark
@@ -208,5 +209,16 @@ let g:neomake_typescript_enabled_makers = ['tslint']
 " Jump to a tag definition
 noremap gd g]
 
+" Go back from tag definition
+noremap gb <c-t>
+
 " QuickFix 'enter' open on new tab
 autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
+
+" Autosave
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+
+" Ctags management
+let g:gutentags_exclude = ['dist', 'build']
