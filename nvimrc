@@ -1,10 +1,10 @@
 " File encoding to utf-8
 set encoding=utf-8
 set fileencodings=utf-8
+set tabstop=2
 
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
-                            " than 50 lines of registers
+set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 lines of registers
 set ruler		" show the cursor position all the time
 
 " Rebind <Leader> key
@@ -61,14 +61,14 @@ set noswapfile
 " Better navigating through omnicomplete option list using ctrl+j/k
 set completeopt=longest,menuone,noinsert
 function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
+	if pumvisible()
+		if a:action == 'j'
+			return "\<C-N>"
+		elseif a:action == 'k'
+			return "\<C-P>"
+		endif
+	endif
+	return a:action
 endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
@@ -85,9 +85,9 @@ noremap <S-j> <C-d>
 noremap <S-k> <C-u>
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Lokaltog/vim-powerline'
@@ -95,8 +95,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'kien/ctrlp.vim'
 Plug 'euclio/vim-markdown-composer'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim'
@@ -104,19 +104,21 @@ Plug 'mhartington/deoplete-typescript'
 Plug 'joshdick/onedark.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 " Typescript autocompletion
 let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
+	let g:deoplete#omni#input_patterns = {}
 endif
 " let g:deoplete#disable_auto_complete = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#auto_complete_start_length = 0
 let g:auto_complete_start_length = 0
-let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_debug = 1
 let g:deoplete#enable_profile = 1
 
@@ -151,22 +153,60 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " omnifuncs
 augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd!
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
 " tern
 if exists('g:plugs["tern_for_vim"]')
-  let g:tern_show_argument_hints = 'on_hold'
-  let g:tern_show_signature_in_pum = 1
-  autocmd FileType javascript setlocal omnifunc=tern#Complete
+	let g:tern_show_argument_hints = 'on_hold'
+	let g:tern_show_signature_in_pum = 1
+	autocmd FileType javascript setlocal omnifunc=tern#Complete
 endif
 
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+" ctrlP ignore
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist\|build'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" Fast Search: The Silver Searcher
+if executable('ag')
+	" Use ag over grep
+	set grepprg=ag\ --nogroup\ --nocolor
+
+	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+	" ag is fast enough that CtrlP doesn't need to cache
+	let g:ctrlp_use_caching = 0
+
+	" bind B to grep word under cursor
+	nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
+
+	" bind \ (backward slash) to grep shortcut
+	command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+	nnoremap \ :Ag<SPACE>
+endif
+
+" Neomake config
+autocmd! BufWritePost * Neomake
+let g:neomake_typescript_tslint_maker = {
+			\ 'args': ['--verbose'],
+			\ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+			\ }
+let g:neomake_typescript_enabled_makers = ['tslint']
+
+" Jump to a tag definition
+noremap gd g]
+
+" QuickFix 'enter' open on new tab
+autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
