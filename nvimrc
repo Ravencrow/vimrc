@@ -124,10 +124,13 @@ let g:deoplete#enable_debug = 1
 let g:deoplete#enable_profile = 1
 let g:deoplete#enable_at_startup = 1
 
+" NerdTree config
 map <Leader>t :NERDTreeTabsToggle<CR>
 map <Leader>f :NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_smart_startup_focus = 2
 autocmd VimEnter * wincmd p
 
 " Set relative numbers
@@ -178,6 +181,7 @@ autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist\|build'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_working_path_mode = 'r'
 
 " Fast Search: The Silver Searcher
 if executable('ag')
@@ -222,3 +226,7 @@ let g:auto_save_silent = 1
 
 " Ctags management
 let g:gutentags_exclude = ['dist', 'build']
+
+" Go to file extensions
+:set suffixesadd+=.js
+:set suffixesadd+=.ts
