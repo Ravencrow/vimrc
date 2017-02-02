@@ -29,6 +29,9 @@ map <Leader>d <c-w>w
 map <S-h> <esc>:tabprevious<CR>
 map <S-l> <esc>:tabnext<CR>
 
+" New tab
+noremap <C-n> <C-t>
+
 " Easier moving of code blocks
 vnoremap < <gv	" better indentation
 vnoremap > >gv	" better i
@@ -122,6 +125,8 @@ Plug 'vim-scripts/vim-auto-save'
 Plug 'jason0x43/vim-js-indent'
 Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
 Plug 'Quramy/tsuquyomi'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 call plug#end()
 
 " Typescript autocompletion
@@ -198,6 +203,10 @@ let g:ctrlp_root_markers = ['node_modules']
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist\|build'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 " Fast Search: The Silver Searcher
 if executable('ag')
@@ -245,3 +254,9 @@ let g:gutentags_exclude = ['dist', 'build']
 " Go to file extensions
 :set suffixesadd+=.js
 :set suffixesadd+=.ts
+
+" Allow jsx syntax in js files
+let g:jsx_ext_required = 0
+
+" Auto-indent
+noremap <C-i> migg=G'i
