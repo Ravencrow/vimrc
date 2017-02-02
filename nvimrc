@@ -89,6 +89,18 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
+
+" Build Tsuquyomi Typescript plugin
+function! BuildTsu(info)
+				if a:info.status == 'installed' || a:info.force
+								if has("mac")
+												make -f make_mac.mak
+								elseif has("linux")
+												make
+								endif
+				endif
+endfunction
+
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Lokaltog/vim-powerline'
 Plug 'tomtom/tcomment_vim'
@@ -107,6 +119,9 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/vim-auto-save'
+Plug 'jason0x43/vim-js-indent'
+Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
+Plug 'Quramy/tsuquyomi'
 call plug#end()
 
 " Typescript autocompletion
@@ -212,10 +227,9 @@ let g:neomake_typescript_tslint_maker = {
 let g:neomake_typescript_enabled_makers = ['tslint']
 
 " Jump to a tag definition
-nnoremap gh g]
-
-" Go back from tag definition
-nnoremap gb <c-t>
+nnoremap gh <C-]>
+autocmd BufNewFile,BufRead *.js nnoremap gh :TernDef<CR>
+autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
 
 " QuickFix 'enter' open on new tab
 autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
