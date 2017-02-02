@@ -178,10 +178,11 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 " ctrlP ignore
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_root_markers = ['node_modules']
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist\|build'
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_cmd = 'CtrlP'
 
 " Fast Search: The Silver Searcher
 if executable('ag')
@@ -189,7 +190,7 @@ if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 
 	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g .'
 
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
@@ -211,10 +212,10 @@ let g:neomake_typescript_tslint_maker = {
 let g:neomake_typescript_enabled_makers = ['tslint']
 
 " Jump to a tag definition
-noremap gd g]
+nnoremap gh g]
 
 " Go back from tag definition
-noremap gb <c-t>
+nnoremap gb <c-t>
 
 " QuickFix 'enter' open on new tab
 autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
