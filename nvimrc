@@ -220,7 +220,7 @@ if executable('ag')
 	let g:ctrlp_use_caching = 0
 
 	" bind B to grep word under cursor
-	nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
+	nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR><Leader>d
 
 	" bind \ (backward slash) to grep shortcut
 	command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
@@ -229,11 +229,9 @@ endif
 
 " Neomake config
 autocmd! BufWritePost * Neomake
-let g:neomake_typescript_tslint_maker = {
-			\ 'args': ['--verbose'],
-			\ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-			\ }
-let g:neomake_typescript_enabled_makers = ['tslint']
+let g:neomake_typescript_tslint_args = [
+			\ '--verbose',
+			\ ]
 
 " Jump to a tag definition
 nnoremap gh <C-]>
