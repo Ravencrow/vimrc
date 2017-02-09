@@ -257,4 +257,4 @@ let g:gutentags_exclude = ['dist', 'build']
 let g:jsx_ext_required = 0
 
 " Auto-indent
-noremap <C-i> migg=G'i
+noremap <C-i> migg=G'izz
