@@ -64,14 +64,14 @@ set noswapfile
 " Better navigating through omnicomplete option list using ctrl+j/k
 set completeopt=longest,menuone,noinsert
 function! OmniPopup(action)
-	if pumvisible()
-		if a:action == 'j'
-			return "\<C-N>"
-		elseif a:action == 'k'
-			return "\<C-P>"
-		endif
-	endif
-	return a:action
+				if pumvisible()
+								if a:action == 'j'
+												return "\<C-N>"
+								elseif a:action == 'k'
+												return "\<C-P>"
+								endif
+				endif
+				return a:action
 endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
@@ -88,9 +88,9 @@ noremap <S-j> <C-d>
 noremap <S-k> <C-u>
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall | source $MYVIMRC
+				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+																\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+				autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 " Build Tsuquyomi Typescript plugin
@@ -105,7 +105,6 @@ function! BuildTsu(info)
 endfunction
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'Lokaltog/vim-powerline'
 Plug 'tomtom/tcomment_vim'
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
@@ -127,12 +126,13 @@ Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
 Plug 'Quramy/tsuquyomi'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Typescript autocompletion
 let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
+				let g:deoplete#omni#input_patterns = {}
 endif
 " let g:deoplete#disable_auto_complete = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -177,19 +177,19 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " omnifuncs
 augroup omnifuncs
-	autocmd!
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+				autocmd!
+				autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+				autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+				autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+				autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+				autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
 " tern
 if exists('g:plugs["tern_for_vim"]')
-	let g:tern_show_argument_hints = 'on_hold'
-	let g:tern_show_signature_in_pum = 1
-	autocmd FileType javascript setlocal omnifunc=tern#Complete
+				let g:tern_show_argument_hints = 'on_hold'
+				let g:tern_show_signature_in_pum = 1
+				autocmd FileType javascript setlocal omnifunc=tern#Complete
 endif
 
 " deoplete tab-complete
@@ -204,34 +204,34 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist\|build'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ }
+												\ 'AcceptSelection("e")': ['<c-t>'],
+												\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+												\ }
 
 " Fast Search: The Silver Searcher
 if executable('ag')
-	" Use ag over grep
-	set grepprg=ag\ --nogroup\ --nocolor
+				" Use ag over grep
+				set grepprg=ag\ --nogroup\ --nocolor
 
-	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g .'
+				" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+				let g:ctrlp_user_command = 'ag %s -l --nocolor -g .'
 
-	" ag is fast enough that CtrlP doesn't need to cache
-	let g:ctrlp_use_caching = 0
+				" ag is fast enough that CtrlP doesn't need to cache
+				let g:ctrlp_use_caching = 0
 
-	" bind B to grep word under cursor
-	nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR><Leader>d
+				" bind B to grep word under cursor
+				nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR><Leader>d
 
-	" bind \ (backward slash) to grep shortcut
-	command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-	nnoremap \ :Ag<SPACE>
+				" bind \ (backward slash) to grep shortcut
+				command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+				nnoremap \ :Ag<SPACE>
 endif
 
 " Neomake config
 autocmd! BufWritePost * Neomake
 let g:neomake_typescript_tslint_args = [
-			\ '--verbose',
-			\ ]
+												\ '--verbose',
+												\ ]
 
 " Jump to a tag definition
 nnoremap gh <C-]>
@@ -258,3 +258,7 @@ let g:jsx_ext_required = 0
 
 " Auto-indent
 noremap <C-i> migg=G'izz
+
+" Vim-airline
+let g:airline#extensions#tabline#enabled = 1
+
