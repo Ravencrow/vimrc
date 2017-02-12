@@ -54,8 +54,9 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Remap the space to / to search faster
-map <Space> /
+" Remap the space to / to search faster creating a bookomark to original
+" location
+map <Space> mm/
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
