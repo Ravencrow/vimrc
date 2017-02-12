@@ -128,6 +128,7 @@ Plug 'Quramy/tsuquyomi'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
+Plug 'Shougo/denite.nvim'
 call plug#end()
 
 " Typescript autocompletion
@@ -147,6 +148,7 @@ let g:deoplete#enable_at_startup = 1
 
 " NerdTree config
 map <Leader>t :NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
+map <Leader>f :NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
 let g:nerdtree_tabs_focus_on_files = 1
@@ -236,3 +238,34 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Disable linting on save for typescript
 let g:tsuquyomi_disable_quickfix = 1
+
+" Unite config
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts',
+				\ ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#var('file_rec', 'command',
+				\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+noremap <C-p> :Denite file_rec buffer<CR>
+noremap <C-f> :Denite grep<CR>
+call denite#custom#map(
+				\ 'insert',
+				\ '<C-j>',
+				\ '<denite:move_to_next_line>',
+				\ 'noremap'
+				\)
+call denite#custom#map(
+				\ 'insert',
+				\ '<C-k>',
+				\ '<denite:move_to_previous_line>',
+				\ 'noremap'
+				\)
+call denite#custom#map(
+				\ 'insert',
+				\ '<CR>',
+				\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
+				\ 'noremap'
+				\)
