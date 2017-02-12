@@ -267,3 +267,7 @@ call denite#custom#map(
 				\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
 				\ 'noremap'
 				\)
+
+" Typescript parameters
+autocmd FileType typescript nmap <buffer> <C-u> :
+		\ <C-u>echo tsuquyomi#hint()<CR>
