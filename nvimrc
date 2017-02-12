@@ -115,7 +115,6 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'euclio/vim-markdown-composer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim'
 Plug 'mhartington/deoplete-typescript'
 Plug 'joshdick/onedark.vim'
@@ -140,8 +139,8 @@ endif
 " let g:deoplete#disable_auto_complete = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_ignore_case = 1
-let g:deoplete#auto_complete_start_length = 0
-let g:auto_complete_start_length = 0
+let g:deoplete#auto_complete_start_length = 1
+let g:auto_complete_start_length = 1
 let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_debug = 1
 let g:deoplete#enable_profile = 1
@@ -153,6 +152,7 @@ let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_smart_startup_focus = 2
+let g:nerdtree_tabs_synchronize_view = 0
 autocmd VimEnter * wincmd p
 
 " Set relative numbers
@@ -231,9 +231,6 @@ endif
 
 " Neomake config
 autocmd! BufWritePost * Neomake
-let g:neomake_typescript_tslint_args = [
-												\ '--verbose',
-												\ ]
 
 " Jump to a tag definition
 nnoremap gh <C-]>
@@ -268,3 +265,5 @@ let g:airline_powerline_fonts = 1
 " Delete trailing white spaces
 autocmd BufWritePre * %s/\s\+$//e
 
+" Disable linting on save for typescript
+let g:tsuquyomi_disable_quickfix = 1
