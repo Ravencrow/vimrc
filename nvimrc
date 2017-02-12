@@ -7,7 +7,7 @@ set bs=indent,eol,start		" allow backspacing over everything in insert mode
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 lines of registers
 set ruler		" show the cursor position all the time
 set guifont=Inconsolata_for_Powerline:h10
-set guifont=Liberation\ Mono\ for\ Powerline\ 10
+set guifont=Inconsolata\ for\ Powerline\ 10
 
 " Rebind <Leader> key
 let mapleader = ","
@@ -148,8 +148,7 @@ let g:deoplete#enable_profile = 1
 let g:deoplete#enable_at_startup = 1
 
 " NerdTree config
-map <Leader>t :NERDTreeTabsToggle<CR>
-map <Leader>f :NERDTreeTabsFind<CR>
+map <Leader>t :NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
 let g:nerdtree_tabs_focus_on_files = 1
@@ -223,7 +222,7 @@ if executable('ag')
 				let g:ctrlp_use_caching = 0
 
 				" bind B to grep word under cursor
-				nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR><Leader>d
+				nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
 
 				" bind \ (backward slash) to grep shortcut
 				command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
