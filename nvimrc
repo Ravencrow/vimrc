@@ -251,6 +251,7 @@ call denite#custom#var('file_rec', 'command',
 				\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 noremap <C-p> :Denite file_rec buffer colorscheme<CR>
 noremap <C-f> :Denite grep<CR>
+noremap <S-b> :DeniteCursorWord grep<CR>
 call denite#custom#map(
 				\ 'insert',
 				\ '<C-j>',
