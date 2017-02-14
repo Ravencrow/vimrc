@@ -116,7 +116,6 @@ Plug 'euclio/vim-markdown-composer'
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/deoplete.nvim'
 Plug 'mhartington/deoplete-typescript'
-Plug 'joshdick/onedark.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'editorconfig/editorconfig-vim'
@@ -129,6 +128,7 @@ Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Shougo/denite.nvim'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 call plug#end()
 
 " Typescript autocompletion
@@ -160,7 +160,9 @@ set number
 
 " Color scheme
 syntax on
-colorscheme onedark
+set termguicolors
+set background=dark
+colorscheme solarized
 
 " Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -247,7 +249,7 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('file_rec', 'command',
 				\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-noremap <C-p> :Denite file_rec buffer<CR>
+noremap <C-p> :Denite file_rec buffer colorscheme<CR>
 noremap <C-f> :Denite grep<CR>
 call denite#custom#map(
 				\ 'insert',
