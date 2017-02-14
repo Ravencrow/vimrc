@@ -129,6 +129,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'tpope/vim-fugitive'
+'
 call plug#end()
 
 " Typescript autocompletion
@@ -239,7 +241,7 @@ autocmd BufWritePre * %s/\s\+$//e
 " Disable linting on save for typescript
 let g:tsuquyomi_disable_quickfix = 1
 
-" Unite config
+" Denite config
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts',
 				\ ['-i', '--vimgrep'])
@@ -274,3 +276,10 @@ call denite#custom#map(
 " Typescript parameters
 autocmd FileType typescript nmap <buffer> <C-u> :
 		\ <C-u>echo tsuquyomi#hint()<CR>
+
+" Fugitive (Git plugin) config
+nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gl :Glog<CR>
