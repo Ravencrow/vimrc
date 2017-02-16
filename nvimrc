@@ -120,7 +120,6 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-scripts/vim-auto-save'
 Plug 'jason0x43/vim-js-indent'
 Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
 Plug 'Quramy/tsuquyomi'
@@ -130,6 +129,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
+Plug 'rdolgushin/groovy.vim'
 '
 call plug#end()
 
@@ -202,9 +202,6 @@ endif
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Neomake config
-autocmd! BufWritePost * Neomake
-
 " Jump to a tag definition
 nnoremap gh <C-]>
 autocmd BufNewFile,BufRead *.js nnoremap gh :TernDef<CR>
@@ -214,9 +211,8 @@ autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
 autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
 
 " Autosave
-let g:auto_save = 1
-let g:auto_save_in_insert_mode = 0
-let g:auto_save_silent = 1
+:au FocusLost * silent! wa
+
 
 " Ctags management
 let g:gutentags_exclude = ['dist', 'build']
@@ -241,41 +237,44 @@ autocmd BufWritePre * %s/\s\+$//e
 " Disable linting on save for typescript
 let g:tsuquyomi_disable_quickfix = 1
 
+" Autoimport Typescript
+nmap <Leader>i :TsuImport<CR>
+
 " Denite config
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts',
-				\ ['-i', '--vimgrep'])
+												\ ['-i', '--vimgrep'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('file_rec', 'command',
-				\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+												\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 noremap <C-p> :Denite file_rec buffer colorscheme<CR>
 noremap <C-f> :Denite grep<CR>
 noremap <S-b> :DeniteCursorWord grep<CR>
 call denite#custom#map(
-				\ 'insert',
-				\ '<C-j>',
-				\ '<denite:move_to_next_line>',
-				\ 'noremap'
-				\)
+												\ 'insert',
+												\ '<C-j>',
+												\ '<denite:move_to_next_line>',
+												\ 'noremap'
+												\)
 call denite#custom#map(
-				\ 'insert',
-				\ '<C-k>',
-				\ '<denite:move_to_previous_line>',
-				\ 'noremap'
-				\)
+												\ 'insert',
+												\ '<C-k>',
+												\ '<denite:move_to_previous_line>',
+												\ 'noremap'
+												\)
 call denite#custom#map(
-				\ 'insert',
-				\ '<CR>',
-				\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
-				\ 'noremap'
-				\)
+												\ 'insert',
+												\ '<CR>',
+												\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
+												\ 'noremap'
+												\)
 
 " Typescript parameters
 autocmd FileType typescript nmap <buffer> <C-u> :
-		\ <C-u>echo tsuquyomi#hint()<CR>
+												\ <C-u>echo tsuquyomi#hint()<CR>
 
 " Fugitive (Git plugin) config
 nmap <Leader>gd :Gdiff<CR>
@@ -283,3 +282,17 @@ nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gl :Glog<CR>
+
+" Groovy syntax
+au BufNewFile,BufRead *.groovy  set groovy
+
+" Undo File
+" Let's save undo info!
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
