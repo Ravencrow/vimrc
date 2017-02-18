@@ -129,6 +129,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " Typescript autocompletion
@@ -189,95 +190,95 @@ augroup omnifuncs
 				autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
-				" tern
-				if exists('g:plugs["tern_for_vim"]')
-								let g:tern_show_argument_hints = 'on_hold'
-								let g:tern_show_signature_in_pum = 1
-								autocmd FileType javascript setlocal omnifunc=tern#Complete
-								autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-				endif
+" tern
+if exists('g:plugs["tern_for_vim"]')
+				let g:tern_show_argument_hints = 'on_hold'
+				let g:tern_show_signature_in_pum = 1
+				autocmd FileType javascript setlocal omnifunc=tern#Complete
+				autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+endif
 
-				" deoplete tab-complete
-				inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-				" Jump to a tag definition
-				nnoremap gh <C-]>
-				autocmd BufNewFile,BufRead *.js nnoremap gh :TernDef<CR>
-				autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
+" Jump to a tag definition
+nnoremap gh <C-]>
+autocmd BufNewFile,BufRead *.js nnoremap gh :TernDef<CR>
+autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
 
-				" QuickFix 'enter' open on new tab
-				autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
+" QuickFix 'enter' open on new tab
+autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
 
-				" Autosave
-				:au FocusLost * silent! wa
+" Autosave
+:au FocusLost * silent! wa
 
 
-				" Ctags management
-				let g:gutentags_exclude = ['dist', 'build']
+" Ctags management
+let g:gutentags_exclude = ['dist', 'build']
 
-				" Go to file extensions
-				:set suffixesadd+=.js
-				:set suffixesadd+=.ts
+" Go to file extensions
+:set suffixesadd+=.js
+:set suffixesadd+=.ts
 
-				" Allow jsx syntax in js files
-				let g:jsx_ext_required = 0
+" Allow jsx syntax in js files
+let g:jsx_ext_required = 0
 
-				" Auto-indent
-				noremap <C-i> migg=G'izz
+" Auto-indent
+noremap <C-i> migg=G'izz
 
-				" Vim-airline
-				let g:airline#extensions#tabline#enabled = 1
-				let g:airline_powerline_fonts = 1
+" Vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
-				" Delete trailing white spaces
-				autocmd BufWritePre * %s/\s\+$//e
+" Delete trailing white spaces
+autocmd BufWritePre * %s/\s\+$//e
 
-				" Disable linting on save for typescript
-				let g:tsuquyomi_disable_quickfix = 1
+" Disable linting on save for typescript
+let g:tsuquyomi_disable_quickfix = 1
 
-				" Autoimport Typescript
-				nmap <Leader>i :TsuImport<CR>
+" Autoimport Typescript
+nmap <Leader>i :TsuImport<CR>
 
-				" Denite config
-				call denite#custom#var('grep', 'command', ['ag'])
-				call denite#custom#var('grep', 'default_opts',
-																\ ['-i', '--vimgrep'])
-				call denite#custom#var('grep', 'recursive_opts', [])
-				call denite#custom#var('grep', 'pattern_opt', [])
-				call denite#custom#var('grep', 'separator', ['--'])
-				call denite#custom#var('grep', 'final_opts', [])
-				call denite#custom#var('file_rec', 'command',
-																\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-				noremap <C-p> :Denite file_rec buffer colorscheme<CR>
-				noremap <C-f> :Denite grep<CR>
-				noremap <S-b> :DeniteCursorWord grep<CR>
-				call denite#custom#map(
-																\ 'insert',
-																\ '<C-j>',
-																\ '<denite:move_to_next_line>',
-																\ 'noremap'
-																\)
-				call denite#custom#map(
-																\ 'insert',
-																\ '<C-k>',
-																\ '<denite:move_to_previous_line>',
-																\ 'noremap'
-																\)
-				call denite#custom#map(
-																\ 'insert',
-																\ '<CR>',
-																\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
-																\ 'noremap'
-																\)
+" Denite config
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts',
+												\ ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#var('file_rec', 'command',
+												\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+noremap <C-p> :Denite file_rec buffer colorscheme<CR>
+noremap <C-f> :Denite grep<CR>
+noremap <S-b> :DeniteCursorWord grep<CR>
+call denite#custom#map(
+												\ 'insert',
+												\ '<C-j>',
+												\ '<denite:move_to_next_line>',
+												\ 'noremap'
+												\)
+call denite#custom#map(
+												\ 'insert',
+												\ '<C-k>',
+												\ '<denite:move_to_previous_line>',
+												\ 'noremap'
+												\)
+call denite#custom#map(
+												\ 'insert',
+												\ '<CR>',
+												\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
+												\ 'noremap'
+												\)
 
-				" Typescript parameters
-				autocmd FileType typescript nmap <buffer> <C-u> :
-																\ <C-u>echo tsuquyomi#hint()<CR>
+" Typescript parameters
+autocmd FileType typescript nmap <buffer> <C-u> :
+												\ <C-u>echo tsuquyomi#hint()<CR>
 
-				" Fugitive (Git plugin) config
-				nmap <Leader>gd :Gdiff<CR>
-				nmap <Leader>gb :Gblame<CR>
-				nmap <Leader>gs :Gstatus<CR>
-				nmap <Leader>gc :Gcommit<CR>
-				nmap <Leader>gl :Glog<CR>
+" Fugitive (Git plugin) config
+nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gl :Glog<CR>
 
