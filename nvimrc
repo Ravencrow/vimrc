@@ -1,7 +1,7 @@
 " File encoding to utf-8
 set encoding=utf-8
 set fileencodings=utf-8
-set tabstop=2
+set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 lines of registers
@@ -67,14 +67,14 @@ set noswapfile
 " Better navigating through omnicomplete option list using ctrl+j/k
 set completeopt=longest,menuone,noinsert
 function! OmniPopup(action)
-				if pumvisible()
-								if a:action == 'j'
-												return "\<C-N>"
-								elseif a:action == 'k'
-												return "\<C-P>"
-								endif
-				endif
-				return a:action
+	if pumvisible()
+		if a:action == 'j'
+			return "\<C-N>"
+		elseif a:action == 'k'
+			return "\<C-P>"
+		endif
+	endif
+	return a:action
 endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
@@ -91,20 +91,20 @@ noremap <S-j> <C-d>
 noremap <S-k> <C-u>
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-																\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-				autocmd VimEnter * PlugInstall | source $MYVIMRC
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 " Build Tsuquyomi Typescript plugin
 function! BuildTsu(info)
-				if a:info.status == 'installed' || a:info.force
-								if has("mac")
-												make -f make_mac.mak
-								elseif has("linux")
-												make
-								endif
-				endif
+	if a:info.status == 'installed' || a:info.force
+		if has("mac")
+			make -f make_mac.mak
+		elseif has("linux")
+			make
+		endif
+	endif
 endfunction
 
 call plug#begin('~/.config/nvim/plugged')
@@ -135,7 +135,7 @@ call plug#end()
 " Typescript autocompletion
 let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
-				let g:deoplete#omni#input_patterns = {}
+	let g:deoplete#omni#input_patterns = {}
 endif
 " let g:deoplete#disable_auto_complete = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -180,22 +180,12 @@ vnoremap <leader>P "+P
 " Cursor shape
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
-" omnifuncs
-augroup omnifuncs
-				autocmd!
-				autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-				autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-				autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-				autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-				autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
 " tern
 if exists('g:plugs["tern_for_vim"]')
-				let g:tern_show_argument_hints = 'on_hold'
-				let g:tern_show_signature_in_pum = 1
-				autocmd FileType javascript setlocal omnifunc=tern#Complete
-				autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+	let g:tern_show_argument_hints = 'on_hold'
+	let g:tern_show_signature_in_pum = 1
+	autocmd FileType javascript setlocal omnifunc=tern#Complete
+	autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 endif
 
 " deoplete tab-complete
@@ -242,38 +232,38 @@ nmap <Leader>i :TsuImport<CR>
 " Denite config
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts',
-												\ ['-i', '--vimgrep'])
+			\ ['-i', '--vimgrep'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('file_rec', 'command',
-												\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+			\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 noremap <C-p> :Denite file_rec buffer colorscheme<CR>
 noremap <C-f> :Denite grep<CR>
 noremap <S-b> :DeniteCursorWord grep<CR>
 call denite#custom#map(
-												\ 'insert',
-												\ '<C-j>',
-												\ '<denite:move_to_next_line>',
-												\ 'noremap'
-												\)
+			\ 'insert',
+			\ '<C-j>',
+			\ '<denite:move_to_next_line>',
+			\ 'noremap'
+			\)
 call denite#custom#map(
-												\ 'insert',
-												\ '<C-k>',
-												\ '<denite:move_to_previous_line>',
-												\ 'noremap'
-												\)
+			\ 'insert',
+			\ '<C-k>',
+			\ '<denite:move_to_previous_line>',
+			\ 'noremap'
+			\)
 call denite#custom#map(
-												\ 'insert',
-												\ '<CR>',
-												\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
-												\ 'noremap'
-												\)
+			\ 'insert',
+			\ '<CR>',
+			\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
+			\ 'noremap'
+			\)
 
 " Typescript parameters
 autocmd FileType typescript nmap <buffer> <C-u> :
-												\ <C-u>echo tsuquyomi#hint()<CR>
+			\ <C-u>echo tsuquyomi#hint()<CR>
 
 " Fugitive (Git plugin) config
 nmap <Leader>gd :Gdiff<CR>
@@ -281,4 +271,30 @@ nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gl :Glog<CR>
+
+" Switch between files
+function! SwitchFile(...) abort
+	let file = expand('%')
+	let files = split(globpath(fnamemodify(file, ':h'), '*'))
+	let index = index(files, file)
+	if index < len(files) - 1
+		let file = files[index + 1]
+	else
+		let file = files[0]
+	endif
+	execute (a:0 ? 'vsplit' : 'edit') file
+	return 0
+endfunction
+
+map <Leader>s :w<cr>:call SwitchFile()<cr>
+
+" omnifuncs
+augroup omnifuncs
+	autocmd!
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript,typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
 
