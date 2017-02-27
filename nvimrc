@@ -149,7 +149,10 @@ let g:deoplete#enable_profile = 1
 call deoplete#custom#set('buffer', 'min_pattern_length', 2)
 
 " NerdTree config
-map <Leader>t :NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
+function! NERDTreeChangeSize(...) abort
+	let g:NERDTreeWinSize=(&columns * 25 / 100)
+endfunction
+map <Leader>t :call NERDTreeChangeSize()<CR>:NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
 map <Leader>f :NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
