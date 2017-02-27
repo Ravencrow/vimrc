@@ -1,13 +1,14 @@
 " File encoding to utf-8
 set encoding=utf-8
 set fileencodings=utf-8
-set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 lines of registers
 set ruler		" show the cursor position all the time
 set guifont=Inconsolata_for_Powerline:h10
 set guifont=Inconsolata\ for\ Powerline\ 10
+set indentkeys+=0.
 
 " Rebind <Leader> key
 let mapleader = ","
@@ -130,6 +131,8 @@ Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
+Plug 'Raimondi/delimitMate'
 call plug#end()
 
 " Typescript autocompletion
@@ -204,7 +207,7 @@ autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
 
 
 " Ctags management
-let g:gutentags_exclude = ['dist', 'build']
+let g:gutentags_ctags_exclude = ['dist', 'build']
 
 " Go to file extensions
 :set suffixesadd+=.js
@@ -287,6 +290,13 @@ function! SwitchFile(...) abort
 endfunction
 
 map <Leader>s :w<cr>:call SwitchFile()<cr>
+
+" Typescript indentation
+let g:typescript_indent_disable = 0
+
+" Delimit mate
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 
 " omnifuncs
 augroup omnifuncs

@@ -5,52 +5,52 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/1d3dbc8/
-<	vimrc	/^vnoremap < <gv	" better indentation$/;"	m
-<C-Space>	vimrc	/^map! <C-Space> <C-X><C-O>$/;"	m
-<C-j>	vimrc	/^inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>$/;"	m
-<C-k>	vimrc	/^inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>$/;"	m
-<C-n>	vimrc	/^inoremap <C-n> :nohl<CR>$/;"	m
-<C-n>	vimrc	/^noremap <C-n> :nohl<CR>$/;"	m
-<C-n>	vimrc	/^vnoremap <C-n> :nohl<CR>$/;"	m
-<Leader>E	vimrc	/^noremap <Leader>E :qa!<CR> 	" Quit all windows$/;"	m
-<Leader>d	vimrc	/^map <Leader>d <c-w>w$/;"	m
-<Leader>e	vimrc	/^noremap <Leader>e :quit<CR> 	" Quit current window$/;"	m
-<Leader>r	vimrc	/^noremap <Leader>r :R<CR>$/;"	m
-<Leader>tR	vimrc	/^noremap <Leader>tR :TernRename<CR>$/;"	m
-<Leader>tc	vimrc	/^nnoremap <Leader>tc :tabclose<CR>$/;"	m
-<Leader>td	vimrc	/^noremap <Leader>td :TernDef<CR>$/;"	m
-<Leader>td	vimrc	/^noremap <Leader>td :TernDoc<CR>$/;"	m
-<Leader>tn	vimrc	/^nnoremap <Leader>tn <plug>NERDTreeTabsToggle<CR>$/;"	m
-<Leader>tt	vimrc	/^noremap <Leader>tt :TernType<CR>$/;"	m
-<Leader>w	vimrc	/^noremap <Leader>w :update<CR>$/;"	m
-<Leader>w	vimrc	/^vnoremap <Leader>w :update<CR>$/;"	m
-<Nul>	vimrc	/^inoremap <Nul> <C-x><C-o>$/;"	m
-<S-h>	vimrc	/^map <S-h> <esc>:tabprevious<CR>$/;"	m
-<S-j>	vimrc	/^noremap <S-j> <C-d>$/;"	m
-<S-k>	vimrc	/^noremap <S-k> <C-u>$/;"	m
-<S-l>	vimrc	/^map <S-l> <esc>:tabnext<CR>$/;"	m
-<Space>	vimrc	/^map <Space> \/$/;"	m
-<c-h>	vimrc	/^map <c-h> <c-w>h$/;"	m
-<c-j>	vimrc	/^map <c-j> <c-w>j$/;"	m
-<c-k>	vimrc	/^map <c-k> <c-W>k$/;"	m
-<c-l>	vimrc	/^map <c-l> <c-w>l$/;"	m
->	vimrc	/^vnoremap > >gv	" better indentation$/;"	m
-NumberToggle	vimrc	/^function! NumberToggle()$/;"	f
-OmniPopup	vimrc	/^function! OmniPopup(action)$/;"	f
-fj	vimrc	/^inoremap fj <Esc>$/;"	m
-g:SuperTabDefaultCompletionType	vimrc	/^let g:SuperTabDefaultCompletionType = "context"$/;"	v
-g:UltiSnipsExpandTrigger	vimrc	/^let g:UltiSnipsExpandTrigger="<c-space>"$/;"	v
-g:UltiSnipsJumpBackwardTrigger	vimrc	/^let g:UltiSnipsJumpBackwardTrigger="<c-s-space>"$/;"	v
-g:UltiSnipsJumpForwardTrigger	vimrc	/^let g:UltiSnipsJumpForwardTrigger="<c-space>"$/;"	v
-g:ctrlp_cmd	vimrc	/^let g:ctrlp_cmd = 'CtrlP'$/;"	v
-g:ctrlp_map	vimrc	/^let g:ctrlp_map = '<c-p>'$/;"	v
-g:pymode_rope_lookup_project	vimrc	/^let g:pymode_rope_lookup_project = 0$/;"	v
-g:solarized_termcolors	vimrc	/^let g:solarized_termcolors=256$/;"	v
-g:tern_map_keys	vimrc	/^let g:tern_map_keys = 1$/;"	v
-g:tern_show_argument_hints	vimrc	/^let g:tern_show_argument_hints = 'on_hold'$/;"	v
-g:typescript_indent_disable	vimrc	/^let g:typescript_indent_disable = 1$/;"	v
-iCanHazVundle	vimrc	/^    let iCanHazVundle=0$/;"	v
-iCanHazVundle	vimrc	/^let iCanHazVundle=1$/;"	v
-mapleader	vimrc	/^let mapleader = ","$/;"	v
-vundle_readme	vimrc	/^let vundle_readme=expand('~\/.vim\/bundle\/vundle\/README.md')$/;"	v
-y	vimrc	/^noremap y "*y$/;"	m
+<	/Users/lucha/vimrc/vimrc	/^vnoremap < <gv	" better indentation$/;"	m
+<C-Space>	/Users/lucha/vimrc/vimrc	/^map! <C-Space> <C-X><C-O>$/;"	m
+<C-j>	/Users/lucha/vimrc/vimrc	/^inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>$/;"	m
+<C-k>	/Users/lucha/vimrc/vimrc	/^inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>$/;"	m
+<C-n>	/Users/lucha/vimrc/vimrc	/^inoremap <C-n> :nohl<CR>$/;"	m
+<C-n>	/Users/lucha/vimrc/vimrc	/^noremap <C-n> :nohl<CR>$/;"	m
+<C-n>	/Users/lucha/vimrc/vimrc	/^vnoremap <C-n> :nohl<CR>$/;"	m
+<Leader>E	/Users/lucha/vimrc/vimrc	/^noremap <Leader>E :qa!<CR> 	" Quit all windows$/;"	m
+<Leader>d	/Users/lucha/vimrc/vimrc	/^map <Leader>d <c-w>w$/;"	m
+<Leader>e	/Users/lucha/vimrc/vimrc	/^noremap <Leader>e :quit<CR> 	" Quit current window$/;"	m
+<Leader>r	/Users/lucha/vimrc/vimrc	/^noremap <Leader>r :R<CR>$/;"	m
+<Leader>tR	/Users/lucha/vimrc/vimrc	/^noremap <Leader>tR :TernRename<CR>$/;"	m
+<Leader>tc	/Users/lucha/vimrc/vimrc	/^nnoremap <Leader>tc :tabclose<CR>$/;"	m
+<Leader>td	/Users/lucha/vimrc/vimrc	/^noremap <Leader>td :TernDef<CR>$/;"	m
+<Leader>td	/Users/lucha/vimrc/vimrc	/^noremap <Leader>td :TernDoc<CR>$/;"	m
+<Leader>tn	/Users/lucha/vimrc/vimrc	/^nnoremap <Leader>tn <plug>NERDTreeTabsToggle<CR>$/;"	m
+<Leader>tt	/Users/lucha/vimrc/vimrc	/^noremap <Leader>tt :TernType<CR>$/;"	m
+<Leader>w	/Users/lucha/vimrc/vimrc	/^noremap <Leader>w :update<CR>$/;"	m
+<Leader>w	/Users/lucha/vimrc/vimrc	/^vnoremap <Leader>w :update<CR>$/;"	m
+<Nul>	/Users/lucha/vimrc/vimrc	/^inoremap <Nul> <C-x><C-o>$/;"	m
+<S-h>	/Users/lucha/vimrc/vimrc	/^map <S-h> <esc>:tabprevious<CR>$/;"	m
+<S-j>	/Users/lucha/vimrc/vimrc	/^noremap <S-j> <C-d>$/;"	m
+<S-k>	/Users/lucha/vimrc/vimrc	/^noremap <S-k> <C-u>$/;"	m
+<S-l>	/Users/lucha/vimrc/vimrc	/^map <S-l> <esc>:tabnext<CR>$/;"	m
+<Space>	/Users/lucha/vimrc/vimrc	/^map <Space> \/$/;"	m
+<c-h>	/Users/lucha/vimrc/vimrc	/^map <c-h> <c-w>h$/;"	m
+<c-j>	/Users/lucha/vimrc/vimrc	/^map <c-j> <c-w>j$/;"	m
+<c-k>	/Users/lucha/vimrc/vimrc	/^map <c-k> <c-W>k$/;"	m
+<c-l>	/Users/lucha/vimrc/vimrc	/^map <c-l> <c-w>l$/;"	m
+>	/Users/lucha/vimrc/vimrc	/^vnoremap > >gv	" better indentation$/;"	m
+NumberToggle	/Users/lucha/vimrc/vimrc	/^function! NumberToggle()$/;"	f
+OmniPopup	/Users/lucha/vimrc/vimrc	/^function! OmniPopup(action)$/;"	f
+fj	/Users/lucha/vimrc/vimrc	/^inoremap fj <Esc>$/;"	m
+g:SuperTabDefaultCompletionType	/Users/lucha/vimrc/vimrc	/^let g:SuperTabDefaultCompletionType = "context"$/;"	v
+g:UltiSnipsExpandTrigger	/Users/lucha/vimrc/vimrc	/^let g:UltiSnipsExpandTrigger="<c-space>"$/;"	v
+g:UltiSnipsJumpBackwardTrigger	/Users/lucha/vimrc/vimrc	/^let g:UltiSnipsJumpBackwardTrigger="<c-s-space>"$/;"	v
+g:UltiSnipsJumpForwardTrigger	/Users/lucha/vimrc/vimrc	/^let g:UltiSnipsJumpForwardTrigger="<c-space>"$/;"	v
+g:ctrlp_cmd	/Users/lucha/vimrc/vimrc	/^let g:ctrlp_cmd = 'CtrlP'$/;"	v
+g:ctrlp_map	/Users/lucha/vimrc/vimrc	/^let g:ctrlp_map = '<c-p>'$/;"	v
+g:pymode_rope_lookup_project	/Users/lucha/vimrc/vimrc	/^let g:pymode_rope_lookup_project = 0$/;"	v
+g:solarized_termcolors	/Users/lucha/vimrc/vimrc	/^let g:solarized_termcolors=256$/;"	v
+g:tern_map_keys	/Users/lucha/vimrc/vimrc	/^let g:tern_map_keys = 1$/;"	v
+g:tern_show_argument_hints	/Users/lucha/vimrc/vimrc	/^let g:tern_show_argument_hints = 'on_hold'$/;"	v
+g:typescript_indent_disable	/Users/lucha/vimrc/vimrc	/^let g:typescript_indent_disable = 1$/;"	v
+iCanHazVundle	/Users/lucha/vimrc/vimrc	/^    let iCanHazVundle=0$/;"	v
+iCanHazVundle	/Users/lucha/vimrc/vimrc	/^let iCanHazVundle=1$/;"	v
+mapleader	/Users/lucha/vimrc/vimrc	/^let mapleader = ","$/;"	v
+vundle_readme	/Users/lucha/vimrc/vimrc	/^let vundle_readme=expand('~\/.vim\/bundle\/vundle\/README.md')$/;"	v
+y	/Users/lucha/vimrc/vimrc	/^noremap y "*y$/;"	m
