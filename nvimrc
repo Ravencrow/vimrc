@@ -301,6 +301,10 @@ let g:typescript_indent_disable = 0
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
+" Selected line colors:
+hi CursorLine cterm=NONE ctermbg=darkblue ctermfg=blue guibg=darkblue guifg=dodgerblue
+
+
 " omnifuncs
 augroup omnifuncs
 	autocmd!
