@@ -275,7 +275,7 @@ autocmd FileType typescript nmap <buffer> <C-u> :
 nmap <Leader>gd :Gdiff<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gc :w<CR>:Gcommit<CR>
 nmap <Leader>gl :Glog<CR>
 
 " Switch between files
@@ -300,10 +300,6 @@ let g:typescript_indent_disable = 0
 " Delimit mate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
-
-" Selected line colors:
-hi CursorLine cterm=NONE ctermbg=darkblue ctermfg=blue guibg=darkblue guifg=dodgerblue
-
 
 " omnifuncs
 augroup omnifuncs
