@@ -248,5 +248,5 @@ let g:tern_map_keys = 1
 let g:tern_show_argument_hints = 'on_hold'
 noremap <Leader>td :TernDoc<CR>
 noremap <Leader>tt :TernType<CR>
-noremap <Leader>td :TernDef<CR>
+noremap <Leader>td :TernDefTab<CR>
 noremap <Leader>tR :TernRename<CR>

@@ -133,6 +133,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
+Plug 'ianks/vim-tsx'
 call plug#end()
 
 " Typescript autocompletion
@@ -236,6 +237,8 @@ let g:tsuquyomi_disable_quickfix = 1
 nmap <Leader>i :TsuImport<CR>
 
 " Denite config
+let g:BASH_Ctrl_j = 'off'
+let g:BASH_Ctrl_k = 'off'
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts',
 			\ ['-i', '--vimgrep'])
