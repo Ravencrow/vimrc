@@ -13,6 +13,23 @@ set indentkeys+=0.
 " Rebind <Leader> key
 let mapleader = ","
 
+" Buffer management
+set hidden
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+map <S-h> :bp<CR>
+map <S-l> :bn<CR>
+
 " Quicksave command
 noremap <Leader>w :update<CR>
 vnoremap <Leader>w :update<CR>
@@ -26,11 +43,6 @@ map <c-j> <c-w>j
 map <c-k> <c-W>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-map <Leader>d <c-w>w
-
-" Easier moving between tabs
-map <S-h> <esc>:tabprevious<CR>
-map <S-l> <esc>:tabnext<CR>
 
 " New tab
 noremap <C-n> <C-t>
@@ -247,7 +259,7 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('file_rec', 'command',
 			\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-noremap <C-p> :Denite file_rec buffer colorscheme<CR>
+noremap <C-p> :Denite buffer file_rec<CR>
 noremap <C-f> :Denite grep<CR>
 noremap <S-b> :DeniteCursorWord grep<CR>
 call denite#custom#map(
@@ -265,7 +277,19 @@ call denite#custom#map(
 call denite#custom#map(
 			\ 'insert',
 			\ '<CR>',
-			\ '<denite:do_action:tabopen>:NERDTreeTabsFind<CR>',
+			\ '<denite:do_action:switch>:NERDTreeTabsFind<CR>',
+			\ 'noremap'
+			\)
+call denite#custom#map(
+			\ 'insert',
+			\ '<C-h>',
+			\ '<denite:do_action:vsplit>:NERDTreeTabsFind<CR>',
+			\ 'noremap'
+			\)
+call denite#custom#map(
+			\ 'insert',
+			\ '<C-l>',
+			\ '<denite:do_action:right>:NERDTreeTabsFind<CR>',
 			\ 'noremap'
 			\)
 
