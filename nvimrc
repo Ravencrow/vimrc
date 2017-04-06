@@ -289,7 +289,7 @@ call denite#custom#map(
 call denite#custom#map(
 			\ 'insert',
 			\ '<C-l>',
-			\ '<denite:do_action:right>:NERDTreeTabsFind<CR>',
+			\ '<denite:do_action:delete>',
 			\ 'noremap'
 			\)
 
