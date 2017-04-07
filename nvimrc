@@ -35,7 +35,7 @@ noremap <Leader>w :update<CR>
 vnoremap <Leader>w :update<CR>
 
 " Quick quit command
-noremap <Leader>e :quit<CR> 	" Quit current window
+noremap <Leader>e :bd<CR> 	" Closes current buffer
 noremap <Leader>E :qa!<CR> 	" Quit all windows
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
