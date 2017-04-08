@@ -27,22 +27,23 @@ nnoremap <Leader>7 :7b<CR>
 nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
-map <S-h> :bp<CR>
-map <S-l> :bn<CR>
+nnoremap <S-h> :bp<CR>
+nnoremap <S-l> :bn<CR>
 
 " Quicksave command
-noremap <Leader>w :update<CR>
-vnoremap <Leader>w :update<CR>
+nnoremap <Leader>w :update<CR>
 
 " Quick quit command
-noremap <Leader>e :bd<CR> 	" Closes current buffer
-noremap <Leader>E :qa!<CR> 	" Quit all windows
+" Closes current buffer
+nnoremap <Leader>e :bd<CR>
+" Quit all windows
+nnoremap <Leader>E :qa!<CR>
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-map <c-j> <c-w>j
-map <c-k> <c-W>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
+noremap <c-j> <c-w>j
+noremap <c-k> <c-W>k
+noremap <c-l> <c-w>l
+noremap <c-h> <c-w>h
 
 " New tab
 noremap <C-n> <C-t>
@@ -68,7 +69,7 @@ set smartcase
 
 " Remap the space to / to search faster creating a bookomark to original
 " location
-map <Space> mm/
+nnoremap <Space> mm/
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
@@ -93,14 +94,14 @@ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 " Set the copy to clipboard to 'y'
-noremap y "*y
+nnoremap y "*y
 
 " Set the ESC key to fj
 inoremap fj <Esc>
 
 " To remap page up and down
-noremap <S-j> <C-d>
-noremap <S-k> <C-u>
+nnoremap <S-j> <C-d>
+nnoremap <S-k> <C-u>
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -164,8 +165,8 @@ call deoplete#custom#set('buffer', 'min_pattern_length', 2)
 function! NERDTreeChangeSize(...) abort
 	let g:NERDTreeWinSize=(&columns * 25 / 100)
 endfunction
-map <Leader>t :call NERDTreeChangeSize()<CR>:NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
-map <Leader>f :NERDTreeTabsFind<CR>
+nnoremap <Leader>t :call NERDTreeChangeSize()<CR>:NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
+nnoremap <Leader>f :NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
 let g:nerdtree_tabs_focus_on_files = 1
@@ -246,7 +247,7 @@ autocmd BufWritePre * %s/\s\+$//e
 let g:tsuquyomi_disable_quickfix = 1
 
 " Autoimport Typescript
-nmap <Leader>i :TsuImport<CR>
+nnoremap <Leader>i :TsuImport<CR>
 
 " Denite config
 let g:BASH_Ctrl_j = 'off'
@@ -260,9 +261,9 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('file_rec', 'command',
 			\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-noremap <C-p> :Denite buffer file_rec<CR>
-noremap <C-f> :Denite grep<CR>
-noremap <S-b> :DeniteCursorWord grep<CR>
+nnoremap <C-p> :Denite buffer file_rec<CR>
+nnoremap <C-f> :Denite grep<CR>
+nnoremap <S-b> :DeniteCursorWord grep<CR>
 call denite#custom#map(
 			\ 'insert',
 			\ '<C-j>',
@@ -295,15 +296,15 @@ call denite#custom#map(
 			\)
 
 " Typescript parameters
-autocmd FileType typescript nmap <buffer> <C-u> :
+autocmd FileType typescript nnoremap <buffer> <C-u> :
 			\ <C-u>echo tsuquyomi#hint()<CR>
 
 " Fugitive (Git plugin) config
-nmap <Leader>gd :Gdiff<CR>
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gc :w<CR>:Gcommit<CR>
-nmap <Leader>gl :Glog<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :w<CR>:Gcommit<CR>
+nnoremap <Leader>gl :Glog<CR>
 
 " Switch between files
 function! SwitchFile(...) abort
@@ -319,7 +320,7 @@ function! SwitchFile(...) abort
 	return 0
 endfunction
 
-map <Leader>s :w<cr>:call SwitchFile()<cr>
+nnoremap <Leader>s :w<cr>:call SwitchFile()<cr>
 
 " Typescript indentation
 let g:typescript_indent_disable = 0
