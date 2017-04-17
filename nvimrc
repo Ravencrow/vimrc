@@ -146,6 +146,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
 Plug 'ianks/vim-tsx'
+Plug 'lambdatoast/elm.vim'
 call plug#end()
 
 " Typescript autocompletion
