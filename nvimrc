@@ -37,7 +37,7 @@ nnoremap <Leader>w :update<CR>
 " Closes current buffer
 nnoremap <Leader>e :bd<CR>
 " Quit all windows
-nnoremap <Leader>E :qa!<CR>
+nnoremap <Leader>Q :qa!<CR>
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 noremap <c-j> <c-w>j
@@ -328,6 +328,10 @@ let g:typescript_indent_disable = 0
 " Delimit mate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
+
+" Other shortcuts
+nnoremap <Leader>k kddO
+nnoremap <Leader>j jddO
 
 " omnifuncs
 augroup omnifuncs
