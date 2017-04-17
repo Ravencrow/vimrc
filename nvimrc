@@ -37,7 +37,7 @@ nnoremap <Leader>w :update<CR>
 " Closes current buffer
 nnoremap <Leader>e :bd<CR>
 " Quit all windows
-nnoremap <Leader>Q :qa!<CR>
+nnoremap <Leader>E :qa!<CR>
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 noremap <c-j> <c-w>j
@@ -147,6 +147,7 @@ Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
 Plug 'ianks/vim-tsx'
 Plug 'lambdatoast/elm.vim'
+Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
 call plug#end()
 
 " Typescript autocompletion
@@ -333,6 +334,9 @@ let g:delimitMate_expand_space = 1
 " Other shortcuts
 nnoremap <Leader>k kddO
 nnoremap <Leader>j jddO
+
+" Elm
+autocmd Filetype elm setlocal ts=4 sts=4 sw=4
 
 " omnifuncs
 augroup omnifuncs
