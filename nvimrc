@@ -37,7 +37,7 @@ nnoremap <Leader>w :update<CR>
 " Closes current buffer
 nnoremap <Leader>e :bd<CR>
 " Quit all windows
-nnoremap <Leader>E :qa!<CR>
+nnoremap <Leader>E :xa<CR>
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 noremap <c-j> <c-w>j
@@ -167,7 +167,7 @@ call deoplete#custom#set('buffer', 'min_pattern_length', 2)
 function! NERDTreeChangeSize(...) abort
 	let g:NERDTreeWinSize=(&columns * 25 / 100)
 endfunction
-nnoremap <Leader>t :call NERDTreeChangeSize()<CR>:NERDTreeTabsToggle<CR><Leader>d:NERDTreeTabsFind<CR>
+nnoremap <Leader>t :call NERDTreeChangeSize()<CR>:NERDTreeTabsToggle<CR><c-w>l:NERDTreeTabsFind<CR><c-w>l
 nnoremap <Leader>f :NERDTreeTabsFind<CR>
 let g:nerdtree_tabs_autofind = 1
 let g:nerdtree_tabs_open_on_new_tab = 1
