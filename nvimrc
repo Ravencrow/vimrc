@@ -146,8 +146,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
 Plug 'ianks/vim-tsx'
-Plug 'lambdatoast/elm.vim'
 Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
+Plug 'lambdatoast/elm.vim'
 call plug#end()
 
 " Typescript autocompletion
@@ -235,7 +235,7 @@ let g:gutentags_ctags_exclude = ['dist', 'build']
 let g:jsx_ext_required = 0
 
 " Auto-indent
-noremap <C-i> migg=G'izz
+noremap <C-0> migg=G'izz
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -337,6 +337,7 @@ nnoremap <Leader>j jddO
 
 " Elm
 autocmd Filetype elm setlocal ts=4 sts=4 sw=4
+let g:elm_format_autosave = 1
 
 " omnifuncs
 augroup omnifuncs
