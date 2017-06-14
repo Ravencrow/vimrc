@@ -29,6 +29,7 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 nnoremap <S-h> :bp<CR>
 nnoremap <S-l> :bn<CR>
+nnoremap <BS> <C-^>
 
 " Quicksave command
 nnoremap <Leader>w :update<CR>
@@ -139,7 +140,6 @@ Plug 'Quramy/tsuquyomi'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -148,6 +148,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'ianks/vim-tsx'
 Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
 Plug 'lambdatoast/elm.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'kien/ctrlp.vim'
 call plug#end()
 
 " Typescript autocompletion
@@ -235,7 +237,7 @@ let g:gutentags_ctags_exclude = ['dist', 'build']
 let g:jsx_ext_required = 0
 
 " Auto-indent
-noremap <C-0> migg=G'izz
+noremap <C-y> migg=G'izz
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -250,52 +252,6 @@ let g:tsuquyomi_disable_quickfix = 1
 
 " Autoimport Typescript
 nnoremap <Leader>i :TsuImport<CR>
-
-" Denite config
-let g:BASH_Ctrl_j = 'off'
-let g:BASH_Ctrl_k = 'off'
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-			\ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#var('file_rec', 'command',
-			\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-nnoremap <C-p> :Denite buffer file_rec<CR>
-nnoremap <C-f> :Denite grep<CR>
-nnoremap <S-b> :DeniteCursorWord grep<CR>
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-j>',
-			\ '<denite:move_to_next_line>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-k>',
-			\ '<denite:move_to_previous_line>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<CR>',
-			\ '<denite:do_action:switch>:NERDTreeTabsFind<CR>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-h>',
-			\ '<denite:do_action:vsplit>:NERDTreeTabsFind<CR>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-l>',
-			\ '<denite:do_action:delete>',
-			\ 'noremap'
-			\)
 
 " Typescript parameters
 autocmd FileType typescript nnoremap <buffer> <C-u> :
@@ -337,7 +293,15 @@ nnoremap <Leader>j jddO
 
 " Elm
 autocmd Filetype elm setlocal ts=4 sts=4 sw=4
+autocmd Filetype elm nnoremap <C-y> :ElmFormat<CR>
 let g:elm_format_autosave = 1
+
+" CtrlP
+set wildignore+=*/node_modules/*,*/elm-stuff/*
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_mruf_relative = 1
 
 " omnifuncs
 augroup omnifuncs
