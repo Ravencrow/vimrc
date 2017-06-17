@@ -36,7 +36,7 @@ nnoremap <Leader>w :update<CR>
 
 " Quick quit command
 " Closes current buffer
-nnoremap <Leader>e :bd<CR>
+nnoremap <Leader>e :BD<CR>
 " Quit all windows
 nnoremap <Leader>E :xa<CR>
 
@@ -150,6 +150,7 @@ Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
 Plug 'lambdatoast/elm.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'kien/ctrlp.vim'
+Plug 'qpkorr/vim-bufkill'
 call plug#end()
 
 " Typescript autocompletion
@@ -299,9 +300,10 @@ let g:elm_format_autosave = 1
 " CtrlP
 set wildignore+=*/node_modules/*,*/elm-stuff/*
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_mruf_relative = 1
+nnoremap <c-o> :CtrlPBuffer<CR>
 
 " omnifuncs
 augroup omnifuncs
