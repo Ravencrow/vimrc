@@ -122,35 +122,42 @@ function! BuildTsu(info)
 endfunction
 
 call plug#begin('~/.config/nvim/plugged')
+
+" Global
 Plug 'tomtom/tcomment_vim'
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'euclio/vim-markdown-composer'
 Plug 'vim-airline/vim-airline'
-Plug 'Shougo/deoplete.nvim'
-Plug 'mhartington/deoplete-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'jason0x43/vim-js-indent'
-Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
-Plug 'Quramy/tsuquyomi'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
-Plug 'ianks/vim-tsx'
-Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
-Plug 'lambdatoast/elm.vim'
-Plug 'elixir-lang/vim-elixir'
 Plug 'kien/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
+
+" Typescript
+Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
+Plug 'mhartington/deoplete-typescript'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'ianks/vim-tsx'
+
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'jason0x43/vim-js-indent'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
+
+" Markdown
+Plug 'euclio/vim-markdown-composer'
+
 call plug#end()
 
 " Typescript autocompletion
@@ -255,8 +262,7 @@ let g:tsuquyomi_disable_quickfix = 1
 nnoremap <Leader>i :TsuImport<CR>
 
 " Typescript parameters
-autocmd FileType typescript nnoremap <buffer> <C-u> :
-			\ <C-u>echo tsuquyomi#hint()<CR>
+autocmd FileType typescript nmap <buffer> <c-h> : <C-u>echo tsuquyomi#hint()<CR>
 
 " Fugitive (Git plugin) config
 nnoremap <Leader>gd :Gdiff<CR>
@@ -291,11 +297,6 @@ let g:delimitMate_expand_space = 1
 " Other shortcuts
 nnoremap <Leader>k kddO
 nnoremap <Leader>j jddO
-
-" Elm
-autocmd Filetype elm setlocal ts=4 sts=4 sw=4
-autocmd Filetype elm nnoremap <C-y> :ElmFormat<CR>
-let g:elm_format_autosave = 1
 
 " CtrlP
 set wildignore+=*/node_modules/*,*/elm-stuff/*
