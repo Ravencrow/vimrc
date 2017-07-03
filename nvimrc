@@ -1,8 +1,75 @@
-" File encoding to utf-8
+" ===================
+" == Plugins Setup ==
+" ===================
+
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+" Build Tsuquyomi Typescript plugin
+function! BuildTsu(info)
+	if a:info.status == 'installed' || a:info.force
+		if has("mac")
+			make -f make_mac.mak
+		elseif has("linux")
+			make
+		endif
+	endif
+endfunction
+
+call plug#begin('~/.config/nvim/plugged')
+
+" Global
+Plug 'tomtom/tcomment_vim'
+Plug 'tmhedberg/matchit'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-airline/vim-airline'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'ryanoasis/vim-devicons'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
+Plug 'Raimondi/delimitMate'
+Plug 'kien/ctrlp.vim'
+Plug 'qpkorr/vim-bufkill'
+
+" Typescript
+Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
+Plug 'mhartington/deoplete-typescript'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'ianks/vim-tsx'
+
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'jason0x43/vim-js-indent'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
+
+" Markdown
+Plug 'euclio/vim-markdown-composer'
+
+" Golang
+Plug 'fatih/vim-go'
+
+call plug#end()
+
+
+" ===========================
+" == Global configurations ==
+" ===========================
+
+" File encoding to utf-8 and general settings
 set encoding=utf-8
 set fileencodings=utf-8
 set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
-
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more than 50 lines of registers
 set ruler		" show the cursor position all the time
@@ -104,71 +171,77 @@ inoremap fj <Esc>
 nnoremap <S-j> <C-d>
 nnoremap <S-k> <C-u>
 
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
+" Set relative numbers
+set relativenumber
+set number
 
-" Build Tsuquyomi Typescript plugin
-function! BuildTsu(info)
-	if a:info.status == 'installed' || a:info.force
-		if has("mac")
-			make -f make_mac.mak
-		elseif has("linux")
-			make
-		endif
+" Color scheme
+syntax on
+let $COLORTERM = "gnome-terminal"
+set termguicolors
+set background=dark
+colorscheme solarized
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+" Cursor shape
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+" Jump to a tag definition
+nnoremap gh <C-]>
+
+" QuickFix 'enter' open on new tab
+autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
+
+" Autosave
+:au FocusLost * silent! wa
+
+" Auto-indent
+noremap <C-y> migg=G'izz
+
+" Delete trailing white spaces
+autocmd BufWritePre * %s/\s\+$//e
+
+" Switch between files
+function! SwitchFile(...) abort
+	let file = expand('%')
+	let files = split(globpath(fnamemodify(file, ':h'), '*'))
+	let index = index(files, file)
+	if index < len(files) - 1
+		let file = files[index + 1]
+	else
+		let file = files[0]
 	endif
+	execute (a:0 ? 'vsplit' : 'edit') file
+	return 0
 endfunction
 
-call plug#begin('~/.config/nvim/plugged')
+nnoremap <Leader>s :w<cr>:call SwitchFile()<cr>
 
-" Global
-Plug 'tomtom/tcomment_vim'
-Plug 'tmhedberg/matchit'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'vim-airline/vim-airline'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'editorconfig/editorconfig-vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'ryanoasis/vim-devicons'
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'alvan/vim-closetag'
-Plug 'Raimondi/delimitMate'
-Plug 'kien/ctrlp.vim'
-Plug 'qpkorr/vim-bufkill'
+" Other shortcuts
+nnoremap <Leader>k kddO
+nnoremap <Leader>j jddO
 
-" Typescript
-Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
-Plug 'mhartington/deoplete-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'ianks/vim-tsx'
 
-" Javascript
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-Plug 'jason0x43/vim-js-indent'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue'
+" ===========================
+" == Plugins Configuration ==
+" ===========================
 
-" Markdown
-Plug 'euclio/vim-markdown-composer'
-
-" Golang
-Plug 'fatih/vim-go'
-
-call plug#end()
-
-" Typescript autocompletion
+" === autocompletion ===
 let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
 	let g:deoplete#omni#input_patterns = {}
 endif
-" let g:deoplete#disable_auto_complete = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_refresh_always = 0
@@ -189,30 +262,42 @@ let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_synchronize_view = 0
 autocmd VimEnter * wincmd p
 
-" Set relative numbers
-set relativenumber
-set number
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Color scheme
-syntax on
-set termguicolors
-set background=dark
-colorscheme solarized
+" Ctags management
+let g:gutentags_ctags_exclude = ['dist', 'build']
 
-" Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
+" Vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+" Fugitive (Git plugin) config
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :w<CR>:Gcommit<CR>
+nnoremap <Leader>gl :Glog<CR>
 
-" Cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" Delimit mate
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+
+" CtrlP
+set wildignore+=*/node_modules/*,*/elm-stuff/*
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_mruf_relative = 1
+nnoremap <c-o> :CtrlPBuffer<CR>
+
+
+" =============================
+" == Language configurations ==
+" =============================
+
+" === Javascript ===
 
 " tern
 if exists('g:plugs["tern_for_vim"]')
@@ -222,41 +307,22 @@ if exists('g:plugs["tern_for_vim"]')
 	autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 endif
 
-" deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Jump to a tag definition
-nnoremap gh <C-]>
+" Tags definition
 autocmd BufNewFile,BufRead *.js nnoremap gh :TernDef<CR>
-autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
-
-" QuickFix 'enter' open on new tab
-autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
-
-" Autosave
-:au FocusLost * silent! wa
-
-
-" Ctags management
-let g:gutentags_ctags_exclude = ['dist', 'build']
 
 " Go to file extensions
 :set suffixesadd+=.js
-:set suffixesadd+=.ts
 
 " Allow jsx syntax in js files
 let g:jsx_ext_required = 0
 
-" Auto-indent
-noremap <C-y> migg=G'izz
+" === Typescript ===
 
-" Vim-airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+" Go to file extensions
+:set suffixesadd+=.ts
 
-" Delete trailing white spaces
-autocmd BufWritePre * %s/\s\+$//e
+" Allow jsx syntax in js files
+let g:jsx_ext_required = 0
 
 " Disable linting on save for typescript
 let g:tsuquyomi_disable_quickfix = 1
@@ -267,47 +333,12 @@ nnoremap <Leader>i :TsuImport<CR>
 " Typescript parameters
 autocmd FileType typescript nmap <buffer> <c-h> : <C-u>echo tsuquyomi#hint()<CR>
 
-" Fugitive (Git plugin) config
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gc :w<CR>:Gcommit<CR>
-nnoremap <Leader>gl :Glog<CR>
-
-" Switch between files
-function! SwitchFile(...) abort
-	let file = expand('%')
-	let files = split(globpath(fnamemodify(file, ':h'), '*'))
-	let index = index(files, file)
-	if index < len(files) - 1
-		let file = files[index + 1]
-	else
-		let file = files[0]
-	endif
-	execute (a:0 ? 'vsplit' : 'edit') file
-	return 0
-endfunction
-
-nnoremap <Leader>s :w<cr>:call SwitchFile()<cr>
-
 " Typescript indentation
 let g:typescript_indent_disable = 0
 
-" Delimit mate
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
+" Tags definition
+autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
 
-" Other shortcuts
-nnoremap <Leader>k kddO
-nnoremap <Leader>j jddO
-
-" CtrlP
-set wildignore+=*/node_modules/*,*/elm-stuff/*
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_relative = 1
-nnoremap <c-o> :CtrlPBuffer<CR>
 
 " omnifuncs
 augroup omnifuncs
