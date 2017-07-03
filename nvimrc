@@ -158,6 +158,9 @@ Plug 'posva/vim-vue'
 " Markdown
 Plug 'euclio/vim-markdown-composer'
 
+" Golang
+Plug 'fatih/vim-go'
+
 call plug#end()
 
 " Typescript autocompletion
