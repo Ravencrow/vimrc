@@ -290,7 +290,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_mruf_relative = 1
-nnoremap <c-o> :CtrlPBuffer<CR>
 
 
 " =============================
@@ -339,8 +338,27 @@ let g:typescript_indent_disable = 0
 " Tags definition
 autocmd BufNewFile,BufRead *.ts nnoremap gh :TsuDefinition<CR>
 
+" === Golang ===
+nnoremap <Leader>gr :GoRun
+nnoremap <Leader>gb :GoBuild
+nnoremap <C-j> :cnext
+nnoremap <C-k> :cprevious
+nnoremap <Leader>gt :GoTest
+nnoremap <Leader>gtf :GoTestFunc
+nnoremap <Leader>gtc :GoTestCompile
+nnoremap <Leader>gc :GoCoverageToggle
+nnoremap <Leader>gl :GoMetaLinter
+nnoremap <Leader>ga :GoAlternate
+nnoremap <Leader>gh :GoDeclsDir
+nnoremap <Leader>gd :GoDoc
+nnoremap <Leader>gi :GoInfo
+nnoremap <Leader>gr :GoReferrers
+autocmd BufNewFile,BufRead *.go nnoremap gh :GoDef<CR>
+let g:go_auto_type_info = 1
 
-" omnifuncs
+
+" =====================================================
+" omnifuncs ¡¡¡Always leave this augroup for the end!!!
 augroup omnifuncs
 	autocmd!
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
