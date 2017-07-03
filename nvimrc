@@ -235,7 +235,7 @@ let g:gutentags_ctags_exclude = ['dist', 'build']
 let g:jsx_ext_required = 0
 
 " Auto-indent
-noremap <C-i> migg=G'izz
+noremap <C-0> migg=G'izz
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
