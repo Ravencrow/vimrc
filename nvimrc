@@ -29,13 +29,14 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 nnoremap <S-h> :bp<CR>
 nnoremap <S-l> :bn<CR>
+nnoremap <BS> <C-^>
 
 " Quicksave command
 nnoremap <Leader>w :update<CR>
 
 " Quick quit command
 " Closes current buffer
-nnoremap <Leader>e :bd<CR>
+nnoremap <Leader>e :BD<CR>
 " Quit all windows
 nnoremap <Leader>E :xa<CR>
 
@@ -121,33 +122,45 @@ function! BuildTsu(info)
 endfunction
 
 call plug#begin('~/.config/nvim/plugged')
+
+" Global
 Plug 'tomtom/tcomment_vim'
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'euclio/vim-markdown-composer'
 Plug 'vim-airline/vim-airline'
-Plug 'Shougo/deoplete.nvim'
-Plug 'mhartington/deoplete-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'jason0x43/vim-js-indent'
-Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
-Plug 'Quramy/tsuquyomi'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Shougo/denite.nvim'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'Raimondi/delimitMate'
+Plug 'kien/ctrlp.vim'
+Plug 'qpkorr/vim-bufkill'
+
+" Typescript
+Plug 'Shougo/vimproc.vim', { 'do': function('BuildTsu') }
+Plug 'mhartington/deoplete-typescript'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 Plug 'ianks/vim-tsx'
-Plug 'lambdatoast/elm.vim'
-Plug 'ElmCast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
+
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'jason0x43/vim-js-indent'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
+
+" Markdown
+Plug 'euclio/vim-markdown-composer'
+
+" Golang
+Plug 'fatih/vim-go'
+
 call plug#end()
 
 " Typescript autocompletion
@@ -235,7 +248,7 @@ let g:gutentags_ctags_exclude = ['dist', 'build']
 let g:jsx_ext_required = 0
 
 " Auto-indent
-noremap <C-0> migg=G'izz
+noremap <C-y> migg=G'izz
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -251,55 +264,8 @@ let g:tsuquyomi_disable_quickfix = 1
 " Autoimport Typescript
 nnoremap <Leader>i :TsuImport<CR>
 
-" Denite config
-let g:BASH_Ctrl_j = 'off'
-let g:BASH_Ctrl_k = 'off'
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-			\ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#var('file_rec', 'command',
-			\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-nnoremap <C-p> :Denite buffer file_rec<CR>
-nnoremap <C-f> :Denite grep<CR>
-nnoremap <S-b> :DeniteCursorWord grep<CR>
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-j>',
-			\ '<denite:move_to_next_line>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-k>',
-			\ '<denite:move_to_previous_line>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<CR>',
-			\ '<denite:do_action:switch>:NERDTreeTabsFind<CR>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-h>',
-			\ '<denite:do_action:vsplit>:NERDTreeTabsFind<CR>',
-			\ 'noremap'
-			\)
-call denite#custom#map(
-			\ 'insert',
-			\ '<C-l>',
-			\ '<denite:do_action:delete>',
-			\ 'noremap'
-			\)
-
 " Typescript parameters
-autocmd FileType typescript nnoremap <buffer> <C-u> :
-			\ <C-u>echo tsuquyomi#hint()<CR>
+autocmd FileType typescript nmap <buffer> <c-h> : <C-u>echo tsuquyomi#hint()<CR>
 
 " Fugitive (Git plugin) config
 nnoremap <Leader>gd :Gdiff<CR>
@@ -335,8 +301,13 @@ let g:delimitMate_expand_space = 1
 nnoremap <Leader>k kddO
 nnoremap <Leader>j jddO
 
-" Elm
-autocmd Filetype elm setlocal ts=4 sts=4 sw=4
+" CtrlP
+set wildignore+=*/node_modules/*,*/elm-stuff/*
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_mruf_relative = 1
+nnoremap <c-o> :CtrlPBuffer<CR>
 
 " omnifuncs
 augroup omnifuncs
